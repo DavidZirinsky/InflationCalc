@@ -1,0 +1,1 @@
+https://rz9r7700gh.execute-api.us-east-1.amazonaws.com//inflation
