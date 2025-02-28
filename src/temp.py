@@ -28,32 +28,7 @@ class FREDInflationCalculator:
             raise Exception(f"FRED API request failed: {response.text}")
             
         return response.json()
-    
-    def calculate_inflation(self, start_date, end_date):
-        """
-        Calculate inflation between two dates.
-        Dates should be in 'YYYY-MM-DD' format.
-        """
-        data = self.get_cpi_data(start_date, end_date)
-        observations = data['observations']
-        
-        if not observations:
-            raise Exception("No CPI data found for the given date range")
-        
-        # Get first and last observation
-        start_cpi = float(observations[0]['value'])
-        end_cpi = float(observations[-1]['value'])
-        
-        # Calculate inflation
-        inflation_rate = ((end_cpi - start_cpi) / start_cpi) * 100
-        
-        return {
-            'start_date': start_date,
-            'end_date': end_date,
-            'start_cpi': start_cpi,
-            'end_cpi': end_cpi,
-            'inflation_rate': round(inflation_rate, 2)
-        }
+
     
     def calculate_value(self, amount, start_date, end_date):
         data = self.get_cpi_data(start_date, end_date)
@@ -65,8 +40,7 @@ class FREDInflationCalculator:
         # Get first and last observation
         start_cpi = float(observations[0]['value'])
         end_cpi = float(observations[-1]['value'])
-        print(f"start cpi {start_cpi}")
-        print(f"end_cpi cpi {end_cpi}")
+        
         # Calculate adjusted value
         adjusted_amount = amount * (end_cpi / start_cpi)
         
