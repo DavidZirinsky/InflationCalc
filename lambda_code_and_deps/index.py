@@ -115,7 +115,6 @@ def calc_inflation(event, reverse = False):
         else:
             return response(400, {
                 "message": "Invalid parameter format. Please check your input values.",
-                "error": str(e)
             })
             
     except ValueError as e:
