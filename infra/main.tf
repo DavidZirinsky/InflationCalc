@@ -70,7 +70,7 @@ resource "aws_api_gateway_integration" "lambda_proxy_integration" {
   resource_id = aws_api_gateway_resource.proxy.id
   http_method = aws_api_gateway_method.proxy_method.http_method
   
-  integration_http_method = "GET"
+  integration_http_method = "ANY"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.inflation.invoke_arn
 }
@@ -88,7 +88,7 @@ resource "aws_api_gateway_integration" "root_integration" {
   resource_id = aws_api_gateway_rest_api.inflation_api.root_resource_id
   http_method = aws_api_gateway_method.root_method.http_method
   
-  integration_http_method = "GET"
+  integration_http_method = "ANY"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.inflation.invoke_arn
 }
