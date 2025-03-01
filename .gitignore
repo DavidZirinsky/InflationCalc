@@ -8,6 +8,9 @@
 *.tfstate.*
 *.tfvars
 
+lambda_code_and_deps/*
+!lambda_code_and_deps/index.py
+
 *.zip
 
 # Crash log files
