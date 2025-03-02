@@ -8,24 +8,22 @@ import requests
 API_KEY = os.environ.get('FRED_API_KEY', 'demo-key')
 INFLATION_DATA_SOURCE = "https://api.stlouisfed.org/fred/series/observations"
 
-# ensure a data is in the YYYY-MM-DD format
+# ensure a data is in the YYYY-MM-DD format, checks that the date isn't in the future
 def is_this_a_valid_date(date_str):
     try:
-        datetime.strptime(date_str, "%Y-%m-%d")
-        return True
+        parsed_date = datetime.strptime(date_str, "%Y-%m-%d")
+        # Get the current date (without time)
+        current_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+        
+        # Check if the date is not in the future
+        return parsed_date <= current_date
     except ValueError:
         return False
 
 def handler(event, context):
 
-    # Extract HTTP method and path
-    http_method = event.get('httpMethod', '')
     path = event.get('path', '')
-    
-    # For debugging
-    print(f"Request path: {path}, method: {http_method}")
-    print(f"Event: {json.dumps(event)}")
-    
+        
     # Route based on path
     if path == "/inflation/calc":
         return calc_inflation(event)
@@ -54,7 +52,6 @@ def handle_base_inflation(event):
     return response(200, data)
 
 def get_cpi_data(start_date, end_date):
-        print(f"\n\n {start_date} \n {end_date}")
         params = {
             'series_id': 'CPIAUCSL',  # CPI for All Urban Consumers: All Items
             'api_key': API_KEY,
@@ -66,24 +63,21 @@ def get_cpi_data(start_date, end_date):
         response = requests.get(INFLATION_DATA_SOURCE, params=params)
         if response.status_code != 200:
             raise Exception(f"FRED API request failed: {response.text}")
-            
+
         return response.json()
 
 def calc_inflation(event, reverse = False):
 
-    # Extract query parameters
     query_params = event.get('queryStringParameters', {}) or {}
     
     try:
-        # Get the amount parameter with default value of 100
-        amount = float(query_params.get('amount', 100))
+        amount = float(query_params.get('amount'))
         
-        # Check if date parameters are provided
         start_date = query_params.get('start_date')
         end_date= query_params.get('end_date')
         
         if start_date and end_date and amount:
-            # Parse dates
+
             if not is_this_a_valid_date(start_date) or not is_this_a_valid_date(end_date):
                 return response(400, {
                     "message": "Invalid parameter format. Please check your input values.",
@@ -97,7 +91,10 @@ def calc_inflation(event, reverse = False):
                 raise Exception("No CPI data found for the given date range")
                 
             start_cpi = float(observations[0]['value'])
+            start_date_from_fred = observations[0]['date']
             end_cpi = float(observations[-1]['value'])
+            end_date_from_fred = observations[-1]['date']
+           
             
             if reverse:
                 adjusted_amount = amount * (start_cpi / end_cpi)
@@ -105,8 +102,8 @@ def calc_inflation(event, reverse = False):
                 adjusted_amount = amount * (end_cpi / start_cpi)
             
             data_to_return = {
-                'start_date': start_date,
-                'end_date': end_date,
+                'start_date': start_date_from_fred,
+                'end_date': end_date_from_fred,
                 'original_amount': amount,
                 'adjusted_amount': round(adjusted_amount, 2),
             }
@@ -128,8 +125,8 @@ def calc_inflation(event, reverse = False):
             "error": str(e)
         })
 
+# Create standardized API response in the format specific for lambdas 
 def response(status_code: int, data: Dict[str, Any]) -> Dict[str, Any]:
-    """Create standardized API response"""
     return {
         'statusCode': status_code,
         'headers': {

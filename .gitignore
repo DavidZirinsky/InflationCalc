@@ -10,6 +10,9 @@
 
 lambda_code_and_deps/*
 !lambda_code_and_deps/index.py
+!lambda_code_and_deps/__init__.py
+
+tests/__init__.pyc
 
 *.zip
 
@@ -39,3 +42,16 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# frontend considerations
+frontend/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+npm-debug.log*
