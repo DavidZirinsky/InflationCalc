@@ -113,6 +113,8 @@ function App() {
         <div className="card-header">
           <h1>Inflation Calculator</h1>
           <p>Compare the value of money over time</p>
+          <br></br>
+          <p>Note: Inflation data is available through the previous month. Current month's data will be released on the 13th of the following month (e.g., February 2025 data releases March 13th 2025).</p>
         </div>
 
         <div className="calculator-form">
@@ -207,7 +209,7 @@ function App() {
           Data based on Consumer Price Index (CPI) from the U.S. Bureau of Labor Statistics
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 
