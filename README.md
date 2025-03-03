@@ -1,6 +1,6 @@
-# Inflation Calculator 
+# Inflation Calculator: See How The Value of Money Has Changed 💰
 
-A full stack web app that uses the FRED api to calculate inflation. This involves a React Frontend, a python backend, and terraform for IaC to configure the AWS lambda the backend runs on. 
+A full stack web app that uses the FRED api to calculate inflation. This involves a React Frontend, a Python backend, and Terraform for IaC to configure the AWS lambda the backend runs on. 
 This can be viewed at:
 https://davidzirinsky.com/inflation/
 
@@ -11,7 +11,7 @@ https://davidzirinsky.com/inflation/
 
 <br>
 
-## Getting a FRED API key
+## Getting a FRED API key 🔑
 Before doing anything visit https://fred.stlouisfed.org/docs/api/api_key.html to get an api key.
 
 Create a `terraform.tfvars` file in the `infra` folder with the contents:
@@ -19,7 +19,7 @@ Create a `terraform.tfvars` file in the `infra` folder with the contents:
 FRED_API_KEY = "API_KEY_YOU_GET"
 ```
 
-## Deploy the backend
+## Deploy the backend 🛠
 Go to the `lambda_code_and_deps` folder:
 ```
 cd lambda_code_and_deps/
@@ -46,7 +46,7 @@ As a debug step you can always to this, the advatages of this command are if net
 ```
 aws lambda invoke --function-name inflation_lambda response.json
 ```
-## Running the Frontend
+## Running the Frontend 🛠
 
 In the frontend directory, you can do the following:
 
@@ -63,3 +63,7 @@ Create a production build:
 ```
 npm run build
 ```
+
+## Find this project useful? 🔎
+
+* Support it by clicking the 🌟 button on the upper right of this page. 🔥
