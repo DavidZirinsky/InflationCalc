@@ -13,6 +13,7 @@ lambda_code_and_deps/*
 !lambda_code_and_deps/__init__.py
 
 tests/__init__.pyc
+tests/__pycache__
 
 *.zip
 
