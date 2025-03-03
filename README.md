@@ -46,7 +46,7 @@ As a debug step you can always to this, the advatages of this command are if net
 ```
 aws lambda invoke --function-name inflation_lambda response.json
 ```
-## Running the Frontend 🛠
+## Running the Frontend 🏗️
 
 In the frontend directory, you can do the following:
 
