@@ -11,6 +11,14 @@ https://davidzirinsky.com/inflation/
 
 <br>
 
+## Getting a FRED API key
+Before doing anything visit https://fred.stlouisfed.org/docs/api/api_key.html to get an api key.
+
+Create a `terraform.tfvars` file in the `infra` folder with the contents:
+```
+FRED_API_KEY = "API_KEY_YOU_GET"
+```
+
 ## Deploy the backend
 Go to the `lambda_code_and_deps` folder:
 ```
@@ -40,25 +48,18 @@ aws lambda invoke --function-name inflation_lambda response.json
 ```
 ## Running the Frontend
 
-In the frontend directory, you can run:
+In the frontend directory, you can do the following:
 
-build:
-### `npm start`
-test:
-### `npm test`
+Run the debub server:
+```
+npm start
+```
+Run tests:
+```
+npm test
+```
 
-prod build:
-### `npm run build`
-
-
-https://fskgad1wub.execute-api.us-east-1.amazonaws.com/prod/inflation/calc?amount=1234&start_date=2020-01-01&end_date=2025-01-01
-https://fskgad1wub.execute-api.us-east-1.amazonaws.com/prod/inflation/reverse?amount=1234&start_date=2020-01-01&end_date=2025-01-01
-
-
-aws lambda invoke --function-name inflation_lambda response.json
-
-
-I did: pip install requests -t .
-
-
-zip -r ../infra/lambda.zip ./*
+Create a production build:
+```
+npm run build
+```
