@@ -53,6 +53,6 @@ frontend/node_modules
 /coverage
 
 # production
-/build
+frontend/build
 
 npm-debug.log*

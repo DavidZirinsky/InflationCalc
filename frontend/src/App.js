@@ -42,9 +42,6 @@ function App() {
   const prevMonthDate = new Date();
   prevMonthDate.setMonth(currentDate.getMonth() - 1);
 
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth() + 1; // JavaScript months are 0-indexed
-
   const prevYear = prevMonthDate.getFullYear();
   const prevMonth = prevMonthDate.getMonth() + 1;
 
