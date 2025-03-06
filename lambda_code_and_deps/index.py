@@ -4,8 +4,8 @@ import os
 from typing import Dict, Any
 import requests
 
-# Get environment variables (for demo purposes)
-API_KEY = os.environ.get("FRED_API_KEY", "demo-key")
+# Get environment variable
+API_KEY = os.environ.get("FRED_API_KEY", "")
 INFLATION_DATA_SOURCE = "https://api.stlouisfed.org/fred/series/observations"
 
 
