@@ -42,7 +42,7 @@ terraform plan
 terraform apply
 ```
 
-As a debug step you can always to this, the advatages of this command are if networking isn't set up you can still test that the lambda is running. The AWS console is also quite helpful
+As a debug step you can always do this, the advantages of this command are if networking isn't set up you can still test that the lambda is running. The AWS console is also quite helpful
 ```
 aws lambda invoke --function-name inflation_lambda response.json
 ```
