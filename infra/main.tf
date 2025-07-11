@@ -33,7 +33,7 @@ resource "aws_lambda_function" "inflation" {
   function_name = "inflation_lambda"
   role = aws_iam_role.lambda_role.arn
   handler = "index.handler"
-  runtime = "python3.9"
+  runtime = "python 3.13"
   source_code_hash = filebase64sha256("lambda.zip")
   # ENV Variable
   environment {
